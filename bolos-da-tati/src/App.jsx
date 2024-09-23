@@ -10,9 +10,8 @@ function App() {
 
   return (
     <>
-      <NavBar />  {}
-      <div>
-        {}
+      <NavBar />  
+      <div>        
         <h1>Bem-vindo à Confeitaria, Bolos da Tati!</h1>
       </div>
     </>
