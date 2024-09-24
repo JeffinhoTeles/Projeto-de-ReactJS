@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from '../assets/logo.png'; 
+import CartWidget from './CartWidget'; 
 import '../App.css';
-
 
 const NavBar = () => {
   return (
@@ -47,9 +47,8 @@ const NavBar = () => {
               <a className="nav-link" href="./contatos.html">Contato</a>
             </li>
           </ul>
-          <form className="d-flex">
-            <button className="btn btn-outline-success" type="submit">Login</button>
-          </form>
+          {}
+          <CartWidget />
         </div>
       </div>
     </nav>

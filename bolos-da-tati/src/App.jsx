@@ -4,16 +4,13 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import NavBar from './components/NavBar';
+import ItemListContainer from './components/ItemListContainer';
 
 function App() {
- 
-
   return (
     <>
-      <NavBar />  
-      <div>        
-        <h1>Bem-vindo à Confeitaria, Bolos da Tati!</h1>
-      </div>
+      <NavBar />  {}
+      <ItemListContainer greeting="Bem-vindo à Confeiraria Bolos da Tati" />  {}
     </>
   );
 }
