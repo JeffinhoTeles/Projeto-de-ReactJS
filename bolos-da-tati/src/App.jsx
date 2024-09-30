@@ -10,7 +10,7 @@ function App() {
   return (
     <>
       <NavBar />  {}
-      <ItemListContainer greeting="Bem-vindo à Confeiraria Bolos da Tati" />  {}
+      <ItemListContainer greeting="Bem-vindo à Confeitaria Bolos da Tati" />
     </>
   );
 }
