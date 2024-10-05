@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; 
 import logo from '../assets/logo.png'; 
 import CartWidget from './CartWidget'; 
 import '../App.css';
@@ -7,15 +8,15 @@ const NavBar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
-        {/* Logo da empresa */}
-        <a className="navbar-brand" href="./index.html">
+        {/* Logo da empresa como Link para Home */}
+        <Link className="navbar-brand" to="/">
           <img
             src={logo}
             id="logo"
             alt="logo da confeitaria"
             style={{ height: '70px' }} // Ajuste do tamanho do logo
           />
-        </a>
+        </Link>
         {/* Botão para navegação colapsável em dispositivos móveis */}
         <button
           className="navbar-toggler"
@@ -32,22 +33,22 @@ const NavBar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <a className="nav-link" href="./index.html">Home</a>
+              <Link className="nav-link" to="/">Home</Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="./produtos.html">Produtos</a>
+              <Link className="nav-link" to="/category/produtos">Produtos</Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="./sobre.html">Sobre</a>
+              <Link className="nav-link" to="/sobre">Sobre</Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="./tati.html">Quem é a Tati</a>
+              <Link className="nav-link" to="/tati">Quem é a Tati</Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="./contatos.html">Contato</a>
+              <Link className="nav-link" to="/contatos">Contato</Link>
             </li>
           </ul>
-          {}
+          {/* CartWidget colocado na Navbar */}
           <CartWidget />
         </div>
       </div>
@@ -56,3 +57,4 @@ const NavBar = () => {
 };
 
 export default NavBar;
+ 
