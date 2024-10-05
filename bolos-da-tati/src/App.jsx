@@ -10,7 +10,7 @@ function App() {
     <Router>
       <NavBar />
       <Routes>
-        <Route path="/" element={<ItemListContainer greeting="Bem-vindo à nossa Confeitaria!" />} />
+        <Route path="/" element={<ItemListContainer greeting="Bem-vindo à Confeitaria Bolos Da Tati!" />} />
         <Route path="/category/:id" element={<ItemListContainer />} />
         <Route path="/item/:id" element={<ItemDetailContainer />} />
       </Routes>
