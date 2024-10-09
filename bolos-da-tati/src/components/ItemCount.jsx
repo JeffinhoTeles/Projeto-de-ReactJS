@@ -17,7 +17,7 @@ const ItemCount = ({ stock, initial, onAdd }) => {
 
   const handleOnAdd = () => {
     if (stock > 0) {
-      onAdd(count);  
+      onAdd(count); // Emite o evento com a quantidade selecionada
     }
   };
 
@@ -32,15 +32,10 @@ const ItemCount = ({ stock, initial, onAdd }) => {
           <i className="fas fa-plus"></i> 
         </button>
       </div>
-      <button 
-        onClick={handleOnAdd} 
-        className="btn btn-primary mt-3"
-        disabled={stock === 0 || count > stock}
-      >
+      <button onClick={handleOnAdd} className="btn btn-primary mt-3">
         <i className="fas fa-cart-plus"></i> 
         Adicionar ao carrinho
       </button>
-      <p className="text-muted">Estoque disponível: {stock}</p>
     </div>
   );
 };

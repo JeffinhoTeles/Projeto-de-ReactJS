@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Para redirecionar para o carrinho
 import ItemCount from './ItemCount';
 
-const ItemDetail = ({ item }) => {
-  const [addedToCart, setAddedToCart] = useState(false);
+const ItemDetail = ({ item, addToCart }) => {
+  const [quantityToAdd, setQuantityToAdd] = useState(0); // Estado para armazenar a quantidade selecionada
+  const navigate = useNavigate(); // Hook para redirecionar para o carrinho
 
-  const handleAddToCart = (quantity) => {
-    console.log(`Adicionado ${quantity} unidades de ${item.title} ao carrinho.`);
-    setAddedToCart(true);
+  const handleAdd = (quantity) => {
+    setQuantityToAdd(quantity); // Armazena a quantidade recebida do ItemCount
   };
 
-  if (!item) return null;
+  const handleCheckout = () => {
+    addToCart(item, quantityToAdd); // Adiciona ao carrinho
+    navigate('/cart'); // Redireciona para o carrinho
+  };
 
   return (
     <div className="card mb-3" style={{ maxWidth: '540px' }}>
@@ -23,14 +27,15 @@ const ItemDetail = ({ item }) => {
             <p className="card-text">{item.description}</p>
             <p className="card-text"><small className="text-muted">Preço: R$ {item.price}</small></p>
 
-            {item.stock > 0 ? (
-              !addedToCart ? (
-                <ItemCount stock={item.stock} initial={1} onAdd={handleAddToCart} />
-              ) : (
-                <p className="text-success">Produto adicionado ao carrinho!</p>
-              )
+            {quantityToAdd === 0 ? (
+              <ItemCount stock={item.stock} initial={1} onAdd={handleAdd} />
             ) : (
-              <p className="text-danger">Produto fora de estoque</p>
+              <>
+                <p className="text-success">Você adicionou {quantityToAdd} {quantityToAdd > 1 ? 'itens' : 'item'} ao carrinho!</p>
+                <button onClick={handleCheckout} className="btn btn-primary">
+                  Finalizar Compra
+                </button>
+              </>
             )}
           </div>
         </div>
