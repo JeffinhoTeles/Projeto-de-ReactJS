@@ -15,7 +15,7 @@ const getItem = (id) => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(mockItems.find(item => item.id === parseInt(id)));
-    }, 2000);
+    }, 1000);
   });
 };
 
