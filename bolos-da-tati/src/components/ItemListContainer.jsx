@@ -1,41 +1,50 @@
-import React, { useState, useEffect } from 'react';
-import ItemList from './ItemList';
-import bolo from '../assets/bolo.jpg';
-import docinho from '../assets/docinho.jpg';
-import torta from '../assets/torta.jpg';
+import React, { useEffect, useState } from "react";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import db from "../../Firestore";
+import Item from "./Item";
+import { useParams } from "react-router-dom";
 
-const ItemListContainer = ({ greeting }) => {
+const ItemListContainer = () => {
   const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { categoryId } = useParams(); // Para capturar o parâmetro de categoria
 
-  // Simulando uma chamada de rede com uma promise
   useEffect(() => {
-    const mockItems = [
-      { id: 1, title: 'Bolo', price: 30, pictureUrl: bolo },
-      { id: 2, title: 'Docinho', price: 50, pictureUrl: docinho },
-      { id: 3, title: 'Torta', price: 50, pictureUrl: torta },
-    ];
+    const fetchItems = async () => {
+      try {
+        let itemsQuery;
+        if (categoryId) {
+          // Filtro de categoria
+          itemsQuery = query(
+            collection(db, "items"),
+            where("category", "==", categoryId)
+          );
+        } else {
+          // Todos os itens
+          itemsQuery = collection(db, "items");
+        }
 
-    const fetchItems = new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(mockItems);
-      }, 2000);  // Simulando um atraso de 2 segundos
-    });
+        const querySnapshot = await getDocs(itemsQuery);
+        const fetchedItems = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
 
-    fetchItems.then((data) => {
-      setItems(data);
-      setLoading(false);
-    });
-  }, []);
+        setItems(fetchedItems);
+      } catch (error) {
+        console.error("Erro ao buscar itens: ", error);
+      }
+    };
+
+    fetchItems();
+  }, [categoryId]);
 
   return (
-    <div className="container mt-5">
-      <h2>{greeting}</h2>
-      {loading ? (
-        <p>Carregando itens...</p>
-      ) : (
-        <ItemList items={items} />
-      )}
+    <div className="container">
+      <div className="row">
+        {items.map((item) => (
+          <Item key={item.id} item={item} />
+        ))}
+      </div>
     </div>
   );
 };

@@ -1,8 +1,10 @@
-import React from 'react';
-import { Link } from 'react-router-dom'; 
-import logo from '../assets/logo.png'; 
-import CartWidget from './CartWidget'; 
-import '../App.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import logo from "../assets/logo.png";
+import CartWidget from "./CartWidget";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
+import "../App.css";
 
 const NavBar = () => {
   return (
@@ -14,7 +16,7 @@ const NavBar = () => {
             src={logo}
             id="logo"
             alt="logo da confeitaria"
-            style={{ height: '70px' }} // Ajuste do tamanho do logo
+            style={{ height: "70px" }} // Ajuste do tamanho do logo
           />
         </Link>
         {/* Botão para navegação colapsável em dispositivos móveis */}
@@ -33,19 +35,29 @@ const NavBar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link className="nav-link" to="/">Home</Link>
+              <Link className="nav-link" to="/">
+                Home
+              </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/category/produtos">Produtos</Link>
+              <Link className="nav-link" to="/category/produtos">
+                Produtos
+              </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/sobre">Sobre</Link>
+              <Link className="nav-link" to="/sobre">
+                Sobre
+              </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/tati">Quem é a Tati</Link>
+              <Link className="nav-link" to="/tati">
+                Quem é a Tati
+              </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/contatos">Contato</Link>
+              <Link className="nav-link" to="/contatos">
+                Contato
+              </Link>
             </li>
           </ul>
           {/* CartWidget colocado na Navbar */}
@@ -57,4 +69,3 @@ const NavBar = () => {
 };
 
 export default NavBar;
- 

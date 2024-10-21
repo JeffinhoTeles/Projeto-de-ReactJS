@@ -127,3 +127,8 @@ const Cart = () => {
 };
 
 export default Cart;
+
+//fazer um redirect e um toast para o botao remove
+//consertar o botao de adicionar ao carinho, que quando clicar mais vezes nao adicionar mais produtos
+//toast de adicionar ao carinho está funcionando so uma vez, quando atualiza e funciona somente aquela vez
+// no carto por um boptao para voltar aos produtos
