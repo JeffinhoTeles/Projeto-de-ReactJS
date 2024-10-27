@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "./CartContext";
+import { createOrder } from "./OrderService";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -11,13 +12,30 @@ const Cart = () => {
   const [isCartCleared, setIsCartCleared] = useState(false);
   const navigate = useNavigate();
 
+  // Calcular o total do carrinho
+  const total = cartItems.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0
+  );
+
   // Função para finalizar a compra
-  const handlePurchase = () => {
-    setPurchaseCompleted(true);
-    setIsCartCleared(false);
-    clear();
-    toast.success("Compra finalizada com sucesso!");
-    setTimeout(() => navigate("/"), 2000);
+  const handleFinalizePurchase = async () => {
+    const buyerInfo = {
+      name: "Nome do Cliente",
+      phone: "123456789",
+      email: "cliente@email.com",
+    };
+
+    const orderId = await createOrder(buyerInfo, cartItems, total);
+
+    if (orderId) {
+      toast.success(`Compra finalizada! ID da ordem: ${orderId}`);
+      setPurchaseCompleted(true);
+      clear();
+      setTimeout(() => navigate("/"), 3000);
+    } else {
+      toast.error("Erro ao finalizar a compra. Tente novamente.");
+    }
   };
 
   // Função para limpar o carrinho
@@ -29,13 +47,7 @@ const Cart = () => {
     setTimeout(() => navigate("/"), 2000);
   };
 
-  // Calcular o total do carrinho
-  const total = cartItems.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
-
-  if (cartItems.length === 0 && !purchaseCompleted && !isCartCleared) {
+  if (cartItems.length === 0 && !purchaseCompleted) {
     return <p className="text-center">O carrinho está vazio</p>;
   }
 
@@ -43,17 +55,7 @@ const Cart = () => {
     <div className="container mt-5">
       <h2 className="text-center mb-4">Seu Carrinho</h2>
       <ToastContainer />
-      {purchaseCompleted && (
-        <div className="alert alert-success text-center" role="alert">
-          Compra finalizada com sucesso!
-        </div>
-      )}
-      {isCartCleared && (
-        <div className="alert alert-success text-center" role="alert">
-          Carrinho limpo com sucesso!
-        </div>
-      )}
-      {!purchaseCompleted && !isCartCleared && cartItems.length > 0 && (
+      {!purchaseCompleted && (
         <>
           <div className="row">
             <div className="col-12">
@@ -67,7 +69,6 @@ const Cart = () => {
                       <span className="fw-bold">{item.title}</span>
                       <span>Preço Unitário: R$ {item.price}</span>
                       <span>Subtotal: R$ {item.price * item.quantity}</span>
-
                       <div className="d-flex align-items-center">
                         <button
                           onClick={() =>
@@ -88,7 +89,6 @@ const Cart = () => {
                         </button>
                       </div>
                     </div>
-
                     <button
                       onClick={() => removeItem(item.id)}
                       className="btn btn-danger btn-sm"
@@ -100,13 +100,11 @@ const Cart = () => {
               </ul>
             </div>
           </div>
-
           <div className="row mt-4">
             <div className="col-12 text-end">
               <h4>Total: R$ {total.toFixed(2)}</h4>
             </div>
           </div>
-
           <div className="row mt-4">
             <div className="col-12 text-center">
               <button
@@ -115,20 +113,23 @@ const Cart = () => {
               >
                 Limpar Carrinho
               </button>
-              <button onClick={handlePurchase} className="btn btn-success">
+              <button
+                onClick={handleFinalizePurchase}
+                className="btn btn-success"
+              >
                 Finalizar Compra
               </button>
             </div>
           </div>
         </>
       )}
+      {purchaseCompleted && (
+        <div className="alert alert-success text-center mt-3" role="alert">
+          Compra finalizada com sucesso! Você será redirecionado.
+        </div>
+      )}
     </div>
   );
 };
 
 export default Cart;
-
-//fazer um redirect e um toast para o botao remove
-//consertar o botao de adicionar ao carinho, que quando clicar mais vezes nao adicionar mais produtos
-//toast de adicionar ao carinho está funcionando so uma vez, quando atualiza e funciona somente aquela vez
-// no carto por um boptao para voltar aos produtos

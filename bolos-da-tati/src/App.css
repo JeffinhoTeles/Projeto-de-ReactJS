@@ -11,8 +11,10 @@
   width: 100%;
   z-index: 1000; 
   height: 100%;
-  overflow-y: auto; /* Permite rolagem para a página inteira */
+  overflow-y: auto; 
   scroll-behavior: smooth;
+
+  
   
 }
 
@@ -46,6 +48,7 @@
 
 .card {
   padding: 2rem;
+  cursor: pointer;
 }
 
 .read-the-docs {
