@@ -9,7 +9,6 @@ const Cart = () => {
   const { cartItems, updateQuantity, removeItem, clear } =
     useContext(CartContext);
   const [purchaseCompleted, setPurchaseCompleted] = useState(false);
-  const [isCartCleared, setIsCartCleared] = useState(false);
   const navigate = useNavigate();
 
   // Calcular o total do carrinho
@@ -30,9 +29,11 @@ const Cart = () => {
 
     if (orderId) {
       toast.success(`Compra finalizada! ID da ordem: ${orderId}`);
-      setPurchaseCompleted(true);
       clear();
-      setTimeout(() => navigate("/"), 3000);
+      setPurchaseCompleted(true);
+
+      // Redireciona para a página de resumo do pedido
+      setTimeout(() => navigate(`/order/${orderId}`), 2000);
     } else {
       toast.error("Erro ao finalizar a compra. Tente novamente.");
     }
@@ -42,9 +43,7 @@ const Cart = () => {
   const handleClearCart = () => {
     clear();
     setPurchaseCompleted(false);
-    setIsCartCleared(true);
     toast.info("Carrinho limpo!");
-    setTimeout(() => navigate("/"), 2000);
   };
 
   if (cartItems.length === 0 && !purchaseCompleted) {
@@ -100,11 +99,13 @@ const Cart = () => {
               </ul>
             </div>
           </div>
+
           <div className="row mt-4">
             <div className="col-12 text-end">
               <h4>Total: R$ {total.toFixed(2)}</h4>
             </div>
           </div>
+
           <div className="row mt-4">
             <div className="col-12 text-center">
               <button

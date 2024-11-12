@@ -1,5 +1,5 @@
 import { collection, addDoc } from "firebase/firestore";
-import db from "../../Firestore";
+import { db } from "../../Firestore";
 
 export const createOrder = async (buyer, items, total) => {
   try {
@@ -20,6 +20,8 @@ export const createOrder = async (buyer, items, total) => {
 };
 
 //implementar o stripe como getway de pagamento
-//configurar variavel de ambiente do FireStore
-//criar uma pagina para mostrar o pedido
+//criar uma pagina para mostrar o pedido efetuado -> Feito
+
+// ------ Pegar do codigo do prof ---------
 //criar o login, logout com base no codigo do professor
+//configurar variavel de ambiente do FireStore
